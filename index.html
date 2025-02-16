@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Food Bank Search</title>
+    <link rel="stylesheet" href="./assets/css/select2.min.css">
+    <link rel="stylesheet" href="./assets/css/slick.css">
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <link rel="stylesheet" href="./assets/css/bootstrap.min.css">
+    <link rel="icon" href="./assets/img/logo-dark.png" type="image/gif" sizes="16x16">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary border-bottom py-2 py-lg-0 mb-3 sticky-top">
+      <div class="container">
+        <a class="navbar-brand" href="#">
+          <img src="./assets/img/logo.png" width="80" alt="">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <div class="d-flex flex-grow-1 flex-lg-row flex-column">
+            <ul class="navbar-nav ms-0 gap-lg-5 ms-lg-auto flex-lg-row flex-column mb-2 mb-lg-0 text-center">
+              <li class="nav-item">
+                <a class="nav-link active py-3" aria-current="page" href="./index.html">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link py-3" aria-current="page" href="./about.html">About Us</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link py-3" aria-current="page" href="./blog.html">Blog</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link py-3" aria-current="page" href="./affiliate.html">Affiliate</a>
+              </li>
+            </ul>
+            <button class="btn btn-dark px-5 py-2 rounded-pill ms-lg-auto ms-0 align-self-center" type="submit"><i class="bi bi-gift me-1"></i> Donate</button>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <section class="banner mb-4">
+      <div class="container">
+        <div class="banner-content mb-3 py-5 rounded-4 position-relative overflow-hidden px-3">
+          <img src="./assets/img/vegetable.png" class="position-absolute vegetable-img-left z-2" alt="">
+          <img src="./assets/img/vegetable.png" alt="" class="position-absolute z-2 vegetable-img-right">
+          <img src="./assets/img/banner-ornament-food.png" class="position-absolute top-0 start-0 object-fit-cover h-100 img-fluid z-1" alt="">
+          <div class="banner-text position-relative z-3">
+            <h1 class="fw-bold mb-5 text-center">Find Food Banks Near You & <span class="d-inline d-sm-block">Make a Difference</span></h1>
+            <div class="d-flex mb-2">
+              <input type="text" name="" class="flex-grow-1 border-0 px-3 shadow-none py-3 rounded-start-pill" id="" placeholder="Food Bank Location">
+              <button class="btn btn-dark rounded-0 rounded-end-pill px-3">Search</button>
+            </div>
+            <a href="" class="text-decoration-none text-dark fw-bold text-start"><i class="bi bi-geo-alt-fill"></i> Use My Location</a>
+          </div>
+        </div>
+        <div class="banner-menu-img">
+          <img src="./assets/img/special-food-menu.png" alt="">
+          <img src="./assets/img/food-menu-best-deal.png" alt="">
+          <img src="./assets/img/food-menu-best-deal.png" alt="">
+          <img src="./assets/img/special-food-menu.png" alt="">
+          <img src="./assets/img/food-menu-best-deal.png" alt="">
+          <img src="./assets/img/food-menu-best-deal.png" alt="">
+          <img src="./assets/img/special-food-menu.png" alt="">
+          <img src="./assets/img/food-menu-best-deal.png" alt="">
+          <img src="./assets/img/food-menu-best-deal.png" alt="">
+        </div>
+      </div>
+    </section>
+
+    <section class="food-bank">
+      <div class="container">
+        <div class="food-bank-content position-relative">
+          <div class="food-bank-header mb-3 d-flex justify-content-between w-100">
+            <h1 class="h3 fw-bold">Top <span class="text-yellow">Listing</span></h1>
+            <div class="d-flex gap-2">
+              <!-- <div class="dropdown">
+                <button class="btn btn-dark rounded-pill px-4 align-self-center" data-bs-toggle="dropdown">Choose State <i class="bi bi-chevron-down"></i></button>
+                <ul class="dropdown-menu dropdown-state"></ul>
+              </div> -->
+              <div class="w-75">
+                <select id="mySelect" class="form-select select-state w-100">
+                  <option selected>Choose State</option>
+                </select>
+              </div>
+              <button class="flex-shrink-0 bg-yellow border-0 text-white py-2 px-4 rounded-pill align-self-center">Sort By <i class="bi bi-chevron-down"></i></button>
+            </div>
+          </div>
+          <div class="food-bank-list position-relative"></div>
+          <p class="mb-0 food-bank-list-pagination">Page 1 of X</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="about my-5">
+      <div class="container">
+        <div class="about-content">
+          <div class="row gy-4 align-items-center">
+            <div class="col-md-6">
+              <div class="position-relative">
+                <img src="./assets/img/about-img-lg.jpeg" alt="" class="img-fluid about-img-lg rounded border border-white">
+                <img src="./assets/img/about-img-sm.jpeg" alt="" class="position-absolute top-50 translate-middle about-img-sm rounded border-5 border border-white">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <h1 class="h3 fw-bold">About <span class="text-yellow">Us</span></h1>
+              <p class="text-muted fw-semibold">Food Bank Search is a platform dedicated to connecting individuals and families in need with nearby food banks, ensuring easier access to essential food resources. We believe that no one should go hungry, and through our extensive network of partner organizations and volunteers, we work to reduce food insecurity in our communities. With a mission to help people find, support, and contribute to food banks, we strive to make a real difference for those in need.</p>
+              <a href="" class="btn btn-dark px-5 rounded-pill">Learn More</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="our-blog mt-5 mb-5">
+      <div class="container">
+        <div class="our-blog-content">
+          <h1 class="h3 fw-bold text-center mb-3">Our <span class="text-yellow">Blog</span></h1>
+          <div class="row gy-4">
+            <div class="col-md-6">
+              <img src="./assets/img/blog-1-img.png" alt="" class="img-fluid rounded mb-3 w-100" height="470">
+              <h4 class="fw-bold">How Food Banks Are Changing Lives</h4>
+              <p>Discover heartwarming stories of individuals and families who have received help from food banks and how their lives have transformed.</p>
+              <a href="#" class="text-yellow text-decoration-none">Read More <i class="bi bi-arrow-up-right"></i></a>
+            </div>
+            <div class="col-md-6">
+              <img src="./assets/img/blog-2-img.png" alt="" class="img-fluid rounded mb-3 w-100" height="470">
+              <h4 class="fw-bold">The Importance of Volunteering at Food Bank</h4>
+              <p>Learn how volunteering at food banks can make a difference and how you can get involved in your community.</p>
+              <a href="#" class="text-yellow text-decoration-none">Read More <i class="bi bi-arrow-up-right"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="py-5 text-white">
+      <div class="container">
+        <div class="footer-content">
+          <div class="row row-cols-1 gy-4 row-cols-sm-2 row-cols-lg-5">
+            <div class="col">
+              <img src="./assets/img/logo-dark.png" alt="" class="w-50">
+            </div>
+            <div class="col">
+              <h6 class="fw-bold">Quick Links</h6>
+              <ul class="list-unstyled p-0">
+                <li><a href="" class="text-white text-decoration-none">Home</a></li>
+                <li><a href="" class="text-white text-decoration-none">About Us</a></li>
+                <li><a href="" class="text-white text-decoration-none">Find a Food Bank</a></li>
+                <li><a href="" class="text-white text-decoration-none">How to Help</a></li>
+                <li><a href="" class="text-white text-decoration-none">Contact</a></li>
+              </ul>
+            </div>
+            <div class="col">
+              <h6 class="fw-bold">Contact Information</h6>
+              <p>Email: foodBank@gmail.com</p>
+            </div>
+            <div class="col">
+              <h6 class="fw-bold">Social Media</h6>
+              <a href="#" class="text-white me-1"><img src="./assets/img/facebook.svg" alt=""></a>
+              <a href="#" class="text-white me-1"><img src="./assets/img/instagram.svg" alt=""></a>
+              <a href="#" class="text-white me-1"><img src="./assets/img/youtube.svg" alt=""></a>
+              <a href="#" class="text-white me-1"><img src="./assets/img/twitter.svg" alt=""></a>
+            </div>
+            <div class="col">
+              <h6 class="fw-bold">Subscribe</h6>
+              <input type="text" class="footer-input rounded-pill w-100 py-2 px-3 text-white mb-3" placeholder="Email">
+              <button class="footer-btn bg-yellow text-white w-100 py-2 border-0 rounded-pill">Send</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <script src="./assets/js/bootstrap.bundle.min.js"></script>
+    <script src="./assets/js/jquery.min.js"></script>
+    <script src="./assets/js/select2.min.js"></script>
+    <script src="./assets/js/slick.js"></script>
+    <script src="./assets/js/clearCache.js"></script>
+    <script src="./assets/js/script.js"></script>
+  </body>
+</html>

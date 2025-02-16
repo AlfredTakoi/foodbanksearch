@@ -1,0 +1,230 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+
+body {
+  font-family: "Quicksand", serif !important;
+}
+
+.nav-link {
+  position: relative;
+}
+
+.nav-link.active {
+  font-weight: bolder;
+}
+
+.nav-link.active::after {
+  content:'';
+  position:absolute;
+  bottom: -3px;
+  left:0;
+  right:0;
+  background:#000;
+  height:5px;
+  border-radius: 10px;
+}
+
+.banner-content {
+  background: linear-gradient(to bottom right, #EFD037, #A48D1D);
+}
+
+.banner-text {
+  width: 50%;
+  margin: auto;
+}
+
+input[type=text]:focus {
+  outline: none;
+}
+
+.vegetable-img-left {
+  width: 44%;
+  top: 0;
+  left: -163px;
+  transform: scaleX(-1);
+}
+
+.vegetable-img-right {
+  width: 44%;
+  bottom: 0;
+  right: -120px;
+}
+
+.text-yellow {
+  color: #EFD037;
+}
+
+.bg-yellow {
+  background-color: #EFD037;
+}
+
+.slick-slide {
+  margin: 0 10px;
+}
+.slick-list {
+  margin: 0 -10px;
+}
+
+.slick-dots {
+	display: flex;
+	justify-content: center;
+	
+	margin: 0;
+	padding: 1rem 0;
+	
+	list-style-type: none;
+	
+		li {
+			margin: 0 0.25rem;
+		}
+	
+		button {
+			display: block;
+			width: 8px;
+			height: 8px;
+			padding: 0;
+			border: none;
+			border-radius: 100%;
+			background-color: rgba(24, 24, 24, 0.2);
+			text-indent: -9999px;
+		}
+	
+		li.slick-active button {
+			background-color: #181818;
+      width: 74px;
+      border-radius: 20px;
+		}
+}
+
+.btn-filter-location {
+  border: 1px solid rgba(205, 205, 205, 1) !important; 
+  color: rgba(205, 205, 205, 1)
+}
+
+.food-bank {
+  margin-bottom: 200px;
+}
+
+.food-bank-next-btn {
+  position: absolute;
+  bottom: -100px;
+  right: 40%;
+  background-color: transparent;
+  border: none;
+  font-size: 30px;
+}
+
+.food-bank-prev-btn {
+  position: absolute;
+  bottom: -100px;
+  left: 40%;
+  background-color: transparent;
+  border: none;
+  font-size: 30px;
+}
+
+.food-bank-list-pagination {
+  position: absolute;
+  bottom: -87px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.about-img-lg {
+  width: 72%;
+  height: 414px;
+  object-fit: cover;
+}
+
+.about-img-sm {
+  width: 274px;
+  height: 315px;
+  object-fit: cover;
+}
+
+footer {
+  background-color: rgba(24, 24, 24, 1);
+}
+
+.footer-input {
+  border: none;
+  background-color: rgba(255, 255, 255, 0.07);
+}
+
+.affiliate-banner-content {
+  background-color: #EFD037;
+  padding-top: 70px;
+  padding-bottom: 70px;
+}
+
+.affiliate-banner-title {
+  font-size: 55px;
+}
+
+.dropdown-state {
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.select2-container--bootstrap {
+  width: auto !important;
+  display: inline-block;
+}
+.select2-selection--single {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 12px;
+  height: auto;
+}
+
+.select2-selection__rendered {
+  color: white !important;
+  padding-left: 0;
+}
+.select2-dropdown {
+  border-radius: 5px;
+}
+
+.select2-container--default .select2-selection--single {
+  height: 41px;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+  line-height: 25px;
+  padding-right: 30px;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__arrow b {
+  background-image: url("./../img/chevron.svg");
+  background-color: transparent;
+  background-size: contain;
+  border: none !important;
+  height: 20px !important;
+  width: 20px !important;
+  margin: auto !important;
+  top: 10px !important;
+  left: -20px !important;
+}
+
+@media screen and (max-width: 768px) {
+  .about-img-sm {
+    width: 50%;
+    height: 216px;
+  }
+
+  .food-bank-next-btn {
+    right: 20%;
+  }
+  .food-bank-prev-btn {
+    left : 20%;
+  }
+
+  .banner-text {
+    width: 100%;
+  }
+
+  .affiliate-banner-title {
+    font-size: 30px;
+  }
+}
