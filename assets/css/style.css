@@ -2,6 +2,7 @@
 
 body {
   font-family: "Quicksand", serif !important;
+  overflow-x: hidden;
 }
 
 .nav-link {
@@ -54,7 +55,7 @@ input[type=text]:focus {
 }
 
 .bg-yellow {
-  background-color: #EFD037;
+  background-color: #EFD037 !important;
 }
 
 .slick-slide {
@@ -205,6 +206,10 @@ footer {
   margin: auto !important;
   top: 10px !important;
   left: -20px !important;
+}
+
+.select2-selection__placeholder {
+  color: #FFF !important;
 }
 
 @media screen and (max-width: 768px) {
