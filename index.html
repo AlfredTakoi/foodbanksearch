@@ -49,11 +49,11 @@
           <img src="./assets/img/banner-ornament-food.png" class="position-absolute top-0 start-0 object-fit-cover h-100 img-fluid z-1" alt="">
           <div class="banner-text position-relative z-3">
             <h1 class="fw-bold mb-5 text-center">Find Food Banks Near You & <span class="d-inline d-sm-block">Make a Difference</span></h1>
-            <div class="d-flex mb-2">
-              <input type="text" name="" class="flex-grow-1 border-0 px-3 shadow-none py-3 rounded-start-pill" id="" placeholder="Food Bank Location">
-              <button class="btn btn-dark rounded-0 rounded-end-pill px-3">Search</button>
-            </div>
-            <a href="" class="text-decoration-none text-dark fw-bold text-start"><i class="bi bi-geo-alt-fill"></i> Use My Location</a>
+            <form action="#" class="d-flex mb-2" id="searchFoodBankLocation">
+              <input type="text" name="" class="flex-grow-1 border-0 px-3 shadow-none py-3 rounded-start-pill" id="searchFoodBankInput" placeholder="Food Bank Location">
+              <button type="submit" class="btn btn-dark rounded-0 rounded-end-pill px-3">Search</button>
+            </form>
+            <a href="#" class="text-decoration-none text-dark fw-bold text-start" id="useMyLocation"><i class="bi bi-geo-alt-fill"></i> Use My Location</a>
           </div>
         </div>
         <div class="banner-menu-img">
@@ -95,7 +95,9 @@
               <span class="visually-hidden">Loading...</span>
             </div>
           </div>
-          <div class="food-bank-list position-relative"></div>
+          <div class="food-bank-list position-relative">
+            
+          </div>
           <p class="mb-0 food-bank-list-pagination">Page 1 of X</p>
         </div>
       </div>

@@ -11,23 +11,48 @@ $(document).ready(function() {
   
   $('.select-state-wrap .select2-selection').addClass('flex-shrink-0 bg-yellow border-0 text-white py-2 px-4 rounded-pill align-self-center');
   $('.select-sortby-wrap .select2-selection').addClass('btn bg-dark btn-dark rounded-pill px-4 py-2 align-self-center');
-  // $(".select2-selection__rendered").append('<i class="bi bi-chevron-down"></i>')
 
   var states = ['Alabama','Alaska','Arizona','Arkansas','California','Colorado','Connecticut','Delaware','Dist of Columbia','Florida','Georgia','Hawaii','Idaho','Illinois','Indiana','Iowa','Kansas','Kentucky','Louisiana','Maine','Maryland','Massachusetts','Michigan','Minnesota','Mississippi','Missouri','Montana','Nebraska','Nevada','New Hampshire','New Jersey','New Mexico','New York','North Carolina','North Dakota','Ohio','Oklahoma','Oregon','Pennsylvania','Rhode Island','South Carolina','South Dakota','Tennessee','Texas','Utah','Vermont','Virginia','Washington','West Virginia','Wisconsin','Wyoming']
+  var usRegions = [
+    'AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'DC', 'FL', 'GA',
+    'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MD',
+    'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ',
+    'NM', 'NY', 'NC', 'ND', 'OH', 'OK', 'OR', 'PA', 'RI', 'SC',
+    'SD', 'TN', 'TX', 'UT', 'VT', 'VA', 'WA', 'WV', 'WI', 'WY'
+  ];
+
+ 
+  var arrayStates = []
 
   states.forEach(item => {
     var value = item.toLowerCase().replace(/\s+/g, '_');
+    arrayStates.push(value)
     $(".select-state").append(`
       <option value="${value}">${item}</option>
     `)
   })
 
+  const stateMapping = Object.fromEntries(arrayStates.map((state, index) => [state, usRegions[index]]));
+
   $(".select-state").on("change", function() {
+    $("#searchFoodBankInput").val("")
     loadJSON($(this).val())
   })
 
   $("#sortOrder").on("change", function() {
-    loadJSON($(".select-state").val())
+    if ($(".select-state").val() == null) {
+      loadAllStateJSON()
+    } else {
+      console.log("kepanggil")
+      loadJSON($(".select-state").val())
+      $("#searchFoodBankInput").val("")
+    }
+  })
+
+  $("#searchFoodBankLocation").on("submit", function(e) {
+    $(".select-state").val("");
+    e.preventDefault();
+    loadAllStateJSON();
   })
 
   function updatePageInfo(slick, currentSlide) {
@@ -40,75 +65,80 @@ $(document).ready(function() {
   }
 
   var jsonData = []
-
-  function loadJSON(state = "alabama") {
+  function loadJSON(state) {
     $("#spinner-loading").show();
     $(".food-bank-list").html("");
-    // $.getJSON(`./assets/data/food_bank.json`, function(data) {
-    //   jsonData = data
-    //   renderCard();
-    // }).done(function() {
-    //   $("#spinner-loading").hide();
-    // })
-
-    $.ajax({
-      url: "./assets/data/food_bank.json",
-      dataType: "json",
-      success: function (data) {
-        jsonData = data
-        renderCard();
-      },
-      error: function () {
-        alert("Gagal mengambil data JSON.");
-      },
-      complete: function () {
-        $("#spinner-loading").hide();
+    $.getJSON(`./assets/data/${state}.json`, function (data) {
+      jsonData = data
+      let selectedState = $(".select-state").val(); // Ambil state yang dipilih
+      let sortOrder = $("#sortOrder").val();
+      let stateCode = stateMapping[selectedState];
+      if (selectedState !== "all") {
+        jsonData = jsonData.filter(item => item.region === stateCode);
       }
+      jsonData.sort((a, b) => {
+        return sortOrder === "asc" ? a.post_title.localeCompare(b.post_title) : b.post_title.localeCompare(a.post_title);
+      });
+
+      renderCard(jsonData)
+      $("#spinner-loading").hide();
+    }).fail(function () {
+      $("#spinner-loading").hide();
+      alert("Failed Loading Data");
     });
   }
 
-  function renderCard() {
-    let selectedState = $(".select-state").val(); // Ambil state yang dipilih
-    let sortOrder = $("#sortOrder").val();
-
-    let filteredData = [];
-    
-    if (selectedState === "all") {
-      jsonData.forEach(state => {
-        filteredData = filteredData.concat(state.data);
+  function loadAllStateJSON() {
+    $("#spinner-loading").show();
+    $(".food-bank-list").html("");
+    let promises = arrayStates.map(file_name => $.getJSON(`./assets/data/${file_name}.json`));
+    Promise.all(promises).then(results => {
+      jsonData = results.flatMap(data => data);
+      let searchQuery = $("#searchFoodBankInput").val().toLowerCase();
+      let sortOrder = $("#sortOrder").val();
+      jsonData.sort((a, b) => {
+        return sortOrder === "asc" ? a.post_title.localeCompare(b.post_title) : b.post_title.localeCompare(a.post_title);
       });
-    } else {
-      let stateData = jsonData.find(state => state.state === selectedState);
-      if (stateData) {
-        filteredData = stateData.data;
+      if (searchQuery) {
+        jsonData = jsonData.filter(item =>
+          item.street.toLowerCase().includes(searchQuery) ||
+          item.city.toLowerCase().includes(searchQuery) ||
+          item.region.toLowerCase().includes(searchQuery)
+        );
       }
-    }
-
-    filteredData.sort((a, b) => {
-      return sortOrder === "asc" ? a.post_title.localeCompare(b.post_title) : b.post_title.localeCompare(a.post_title);
+      renderCard(jsonData)
+    }).catch(() => {
+      alert("Failed Loading Data");
+    }).finally(() => {
+      $("#spinner-loading").hide();
     });
-    console.log(filteredData)
+  }
 
-    filteredData.forEach(item => {
-      $(".food-bank-list").html();
-      $(".food-bank-list").append(
-        `
-        <div class="food-bank-item">
-          <img src="./assets/img/food-bank-img.png" class="rounded-3 mb-3 w-100 object-fit-cover" alt="" height="162">
-          <h5 class="fw-bold">${item.post_title}</h5>
-          <span class="d-block mb-2"><i class="bi bi-geo-alt"></i> Food Bank</span>
-          <p class="mb-2">${item.street} ${item.zip}</p>
-          <span class="d-block mb-2"><i class="bi bi-telephone"></i> ${item.phone || "-"}</span>
-        </div>
-        `
-      );
-    });
-
-    // console.log(filteredData)
-
+  function renderCard(filteredData) {
     var $slider = $(".food-bank-list");
     if($slider.hasClass("slick-initialized")) {
       $slider.slick("unslick");
+    }
+
+    console.log(filteredData)
+
+    $(".food-bank-list").empty();
+    if (filteredData.length == 0) {
+      $(".food-bank-list").append('<span class="text-center">Food Bank is not found</span>')
+    } else {
+      filteredData.forEach(item => {
+        $(".food-bank-list").append(
+          `
+          <div class="food-bank-item">
+            <img src="./assets/img/food-bank-img.png" class="rounded-3 mb-3 w-100 object-fit-cover" alt="" height="162">
+            <h5 class="fw-bold">${item.post_title}</h5>
+            <span class="d-block mb-2"><i class="bi bi-geo-alt"></i> Food Bank</span>
+            <p class="mb-2">${item.street} ${item.zip}</p>
+            <span class="d-block mb-2"><i class="bi bi-telephone"></i> ${item.phone || "-"}</span>
+          </div>
+          `
+        );
+      });
     }
     
     $slider.on("init", function (event, slick) {
@@ -145,7 +175,8 @@ $(document).ready(function() {
     });
   }
 
-  loadJSON("all");
+  var defaultState = "alabama"
+  loadJSON(defaultState);
 
   $(".banner-menu-img").slick({
     infinite: true,
@@ -162,10 +193,6 @@ $(document).ready(function() {
           slidesToScroll: 1
         }
       },
-     
     ]
-    
   })
-  
- 
 })
