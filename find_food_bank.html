@@ -4,9 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Food Bank Search</title>
+    <link rel="stylesheet" href="./assets/css/select2.min.css">
     <link rel="stylesheet" href="./assets/css/slick.css">
     <link rel="stylesheet" href="./assets/css/style.css">
     <link rel="stylesheet" href="./assets/css/bootstrap.min.css">
+    <link rel="icon" href="./assets/img/logo-dark.png" type="image/gif" sizes="16x16">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
   </head>
   <body>
@@ -25,7 +27,7 @@
                 <a class="nav-link py-3" aria-current="page" href="./index.html">Home</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link py-3" aria-current="page" href="./find_food_bank.html">Find A Food Bank</a>
+                <a class="nav-link active py-3" aria-current="page" href="./find_food_bank.html">Find A Food Bank</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link py-3" aria-current="page" href="./about.html">About Us</a>
@@ -34,7 +36,7 @@
                 <a class="nav-link py-3" aria-current="page" href="./blog.html">Blog</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link active py-3" aria-current="page" href="./affiliate.html">Add Your Food Bank</a>
+                <a class="nav-link py-3" aria-current="page" href="./affiliate.html">Add Your Food Bank</a>
               </li>
             </ul>
             <button class="btn btn-dark px-5 py-2 rounded-pill ms-lg-auto ms-0 align-self-center" type="submit"><i class="bi bi-gift me-1"></i> Donate</button>
@@ -42,55 +44,64 @@
         </div>
       </div>
     </nav>
-
-    <section class="affiliate-banner py-5 position-relative">
+    <section class="banner mb-4">
       <div class="container">
-        <img src="./assets/img/affiliate-ornament-line.png" alt="" class="position-absolute z-1 w-100 start-0 top-0 h-100 object-fit-cover">
-        <div class="affiliate-banner-content rounded-3 px-5">
-          <div class="position-relative z-2">
-            <div class="row">
-              <div class="col-md-6">
-                <h3 class="fw-bold mb-5">Food Bank Search</h3>
-                <p class="mb-1">Become A Affiliate Member!</p>
-                <h1 class="fw-bold affiliate-banner-title mb-3">Earn up to <span class="text-white">10%</span> commission for every successful referral</h1>
-                <div class="d-flex gap-2">
-                  <a href="" class="btn btn-dark rounded-pill fw-bold w-50">Login</a>
-                  <a href="" class="bg-dark fw-bold text-decoration-none text-center border border-dark text-dark py-2 px-5 rounded-pill w-50"  style="--bs-bg-opacity: .1;">Join Now</a>
-                </div>
-              </div>
-              <div class="col-md-6 text-center">
-                <img src="./assets/img/affiliate-banner.png" alt="" class="img-fluid w-100" height="500">
-              </div>
-            </div>
+        <div class="banner-content mb-3 py-5 rounded-4 position-relative overflow-hidden px-3">
+          <img src="./assets/img/vegetable.png" class="position-absolute vegetable-img-left z-2" alt="">
+          <img src="./assets/img/vegetable.png" alt="" class="position-absolute z-2 vegetable-img-right">
+          <img src="./assets/img/banner-ornament-food.png" class="position-absolute top-0 start-0 object-fit-cover h-100 img-fluid z-1" alt="">
+          <div class="banner-text position-relative z-3">
+            <h1 class="fw-bold mb-5 text-center">Find Food Banks Near You & <span class="d-inline d-sm-block">Make a Difference</span></h1>
+            <form action="#" class="d-flex mb-2" id="searchFoodBankLocation">
+              <input type="text" name="" class="flex-grow-1 border-0 px-3 shadow-none py-3 rounded-start-pill" id="searchFoodBankInput" placeholder="Food Bank Location">
+              <button type="submit" class="btn btn-dark rounded-0 rounded-end-pill px-3">Search</button>
+            </form>
+            <a href="#" class="text-decoration-none text-dark fw-bold text-start" id="useMyLocation"><i class="bi bi-geo-alt-fill"></i> Use My Location</a>
           </div>
+        </div>
+        <div class="banner-menu-img">
+          <img src="./assets/img/special-food-menu.png" alt="">
+          <img src="./assets/img/food-menu-best-deal.png" alt="">
+          <img src="./assets/img/food-menu-best-deal.png" alt="">
+          <img src="./assets/img/special-food-menu.png" alt="">
+          <img src="./assets/img/food-menu-best-deal.png" alt="">
+          <img src="./assets/img/food-menu-best-deal.png" alt="">
+          <img src="./assets/img/special-food-menu.png" alt="">
+          <img src="./assets/img/food-menu-best-deal.png" alt="">
+          <img src="./assets/img/food-menu-best-deal.png" alt="">
         </div>
       </div>
     </section>
 
-    <section class="feature mb-5 py-5">
+    <section class="food-bank">
       <div class="container">
-        <div class="feature-content">
-          <div class="row align-items-center">
-            <div class="col-md-4 text-center">
-              <img src="./assets/img/join.png" alt="" class="mb-5">
-              <h2 class="fw-bold mb-2">Join</h2>
-              <p class="mb-5">It's free and easy to join. <br>Get up and running today.</p>
-              <button class="btn btn-dark px-5 py-2 rounded-pill ms-lg-auto ms-0">Join Now</button>
-            </div>
-            <div class="col-md-4 text-center">
-              <img src="./assets/img/promote.png" alt="" class="mb-5">
-              <h2 class="fw-bold mb-2">Promote</h2>
-              <p>Choose from our products to advertise to your audience.</p>
-              <p class="mb-5">If you want to monetize your social media following. Whether it be on Instagram, Youtube, Tiktok & more, we have simple linking tools to meet your advertising needs and help you start earning!</p>
-              <button class="btn btn-dark px-5 py-2 rounded-pill ms-lg-auto ms-0">Looking Tools</button>
-            </div>
-            <div class="col-md-4 text-center">
-              <img src="./assets/img/promote.png" alt="" class="mb-5">
-              <h2 class="fw-bold mb-3">Earn</h2>
-              <p class="mb-5">Get up to 10% in commissions on successful referrals. Earn commissions from all qualifying purchases, not just the products you advertised. Plus, our competitive conversion rates help you maximize your earnings.</p>
-              <button class="btn btn-dark px-5 py-2 rounded-pill ms-lg-auto ms-0">Product Commision</button>
+        <div class="food-bank-content position-relative">
+          <div class="food-bank-header mb-3 d-flex justify-content-between w-100">
+            <h1 class="h3 fw-bold">Top <span class="text-yellow">Listing</span></h1>
+            <div class="d-flex gap-2">
+              <div class="w-75 select-state-wrap">
+                <select id="mySelect" class="form-select select-state w-100" data-placeholder="Choose State">
+                  <option selected value="all">Choose State</option>
+                </select>
+              </div>
+              <div class="w-75 select-sortby-wrap">
+                <select id="sortOrder" class="form-select w-100" data-placeholder="Sort By">
+                  <option selected value="asc">Sort By</option>
+                  <option value="asc">Ascending</option>
+                  <option value="desc">Descending</option>
+                </select>
+              </div>
             </div>
           </div>
+          <div class="d-flex justify-content-center">
+            <div class="spinner-border" id="spinner-loading" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+          </div>
+          <div class="food-bank-list position-relative">
+            
+          </div>
+          <p class="mb-0 food-bank-list-pagination">Page 1 of X</p>
         </div>
       </div>
     </section>
@@ -132,9 +143,9 @@
         </div>
       </div>
     </footer>
-
     <script src="./assets/js/bootstrap.bundle.min.js"></script>
     <script src="./assets/js/jquery.min.js"></script>
+    <script src="./assets/js/select2.min.js"></script>
     <script src="./assets/js/slick.js"></script>
     <script src="./assets/js/clearCache.js"></script>
     <script src="./assets/js/script.js"></script>

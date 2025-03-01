@@ -43,7 +43,6 @@ $(document).ready(function() {
     if ($(".select-state").val() == null) {
       loadAllStateJSON()
     } else {
-      console.log("kepanggil")
       loadJSON($(".select-state").val())
       $("#searchFoodBankInput").val("")
     }
@@ -100,11 +99,18 @@ $(document).ready(function() {
         return sortOrder === "asc" ? a.post_title.localeCompare(b.post_title) : b.post_title.localeCompare(a.post_title);
       });
       if (searchQuery) {
-        jsonData = jsonData.filter(item =>
-          item.street.toLowerCase().includes(searchQuery) ||
-          item.city.toLowerCase().includes(searchQuery) ||
-          item.region.toLowerCase().includes(searchQuery)
-        );
+        let stateFileName = searchQuery.replace(/\s+/g, '_');
+        let stateData = jsonData.filter(item => item.region === stateMapping[stateFileName]);
+        if (stateData.length > 0) {
+          jsonData = stateData;
+        } else {
+          jsonData = jsonData.filter(item =>
+            item.street.toLowerCase().includes(searchQuery) ||
+            item.city.toLowerCase().includes(searchQuery) ||
+            item.region.toLowerCase().includes(searchQuery) ||
+            item.post_title.toLowerCase().includes(searchQuery)
+          );
+        }
       }
       renderCard(jsonData)
     }).catch(() => {
@@ -120,8 +126,6 @@ $(document).ready(function() {
       $slider.slick("unslick");
     }
 
-    console.log(filteredData)
-
     $(".food-bank-list").empty();
     if (filteredData.length == 0) {
       $(".food-bank-list").append('<span class="text-center">Food Bank is not found</span>')
@@ -129,7 +133,8 @@ $(document).ready(function() {
       filteredData.forEach(item => {
         $(".food-bank-list").append(
           `
-          <div class="food-bank-item">
+          <div class="food-bank-item position-relative">
+            <a href="https://www.google.com/maps?q=${item.latitude},${item.longitude}" target="_blank" class="stretched-link"></a>
             <img src="./assets/img/food-bank-img.png" class="rounded-3 mb-3 w-100 object-fit-cover" alt="" height="162">
             <h5 class="fw-bold">${item.post_title}</h5>
             <span class="d-block mb-2"><i class="bi bi-geo-alt"></i> Food Bank</span>
@@ -173,6 +178,87 @@ $(document).ready(function() {
         },
       ]
     });
+  }
+
+  var searchRadius = 200
+  
+  $("#useMyLocation").on("click", function () {
+    if (navigator.geolocation) {
+      $(".food-bank-list").empty()
+      $("#spinner-loading").show();
+
+      navigator.geolocation.getCurrentPosition(
+        function (position) {
+          let userLat = position.coords.latitude;
+          let userLng = position.coords.longitude;
+          // let userLat = 41.5877212;
+          // let userLng = -109.2256006;
+
+          console.log(`User Location: ${userLat}, ${userLng}`);
+
+          // Search location nearest from user location
+          var allFoodBank = []
+          let promises = arrayStates.map(file_name => $.getJSON(`./assets/data/${file_name}.json`));
+          Promise.all(promises).then(results => {
+            allFoodBank = results.flatMap(data => data);
+           
+            let nearestLocations = allFoodBank
+              .map(item => ({
+                ...item,
+                distance: getDistanceFromLatLonInKm(userLat, userLng, item.latitude, item.longitude)
+              }))
+              .filter(item => item.distance <= searchRadius) // filter in 200km
+              .sort((a, b) => a.distance - b.distance); // Sorting from nearest to farthest
+
+            if (nearestLocations.length > 0) {
+              renderCard(nearestLocations);
+            } else {
+              $(".food-bank-list").append('<p class="text-center">Food Bank is not found</p>')
+            }
+            $(".select-state").val("")
+            $("#sortOrder").off("change").on("change", function() {
+              $(".food-bank-list").empty()
+              $("#spinner-loading").show();
+              if ($(".select-state").val() == null) {
+                let sortOrder = $(this).val();
+                nearestLocations.sort((a, b) => {
+                  return sortOrder === "asc" ? a.post_title.localeCompare(b.post_title) : b.post_title.localeCompare(a.post_title);
+                });
+                renderCard(nearestLocations);
+                $("#spinner-loading").hide();
+              } else {
+                loadJSON($(".select-state").val())
+              }
+            })
+            $("#spinner-loading").hide();
+          }).catch(() => {
+            alert("Failed Loading Data");
+          })
+        },
+        function (error) {
+          $("#spinner-loading").hide();
+          alert("Failed get location: " + error.message);
+        }
+      );
+    } else {
+      alert("Browser Anda tidak mendukung Geolocation.");
+    }
+  });
+
+  function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
+    const R = 6371; // Radius of the earth in km
+    const dLat = deg2rad(lat2 - lat1);
+    const dLon = deg2rad(lon2 - lon1);
+    const a =
+      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
+      Math.sin(dLon / 2) * Math.sin(dLon / 2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    return R * c; // distance in km
+  }
+
+  function deg2rad(deg) {
+    return deg * (Math.PI / 180);
   }
 
   var defaultState = "alabama"

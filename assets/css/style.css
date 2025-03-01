@@ -16,7 +16,7 @@ body {
 .nav-link.active::after {
   content:'';
   position:absolute;
-  bottom: -3px;
+  bottom: -13px;
   left:0;
   right:0;
   background:#000;
@@ -112,6 +112,10 @@ input[type=text]:focus {
   background-color: transparent;
   border: none;
   font-size: 30px;
+}
+
+.food-bank-item:hover h5 {
+  text-decoration: underline;
 }
 
 .food-bank-prev-btn {
